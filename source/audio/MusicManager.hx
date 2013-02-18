@@ -1,0 +1,6 @@
+package audio;
+
+class MusicManager 
+{
+
+}

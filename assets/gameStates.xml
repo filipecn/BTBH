@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gameStates>
+	<gameState name='intro' type='Play' nextState='mainMenu'>
+		<gameCycles>
+			<gameCycle type='CutScene' id='0'>
+				<skippable>true</skippable>
+			</gameCycle>
+		</gameCycles>
+		<sequence>0</sequence>
+	</gameState>
+	<gameState name='mainMenu' type='Menu'>
+		<buttons>
+			<button>
+				<x>50</x>
+				<y>100</y>
+				<action>level/level1</action>
+			</button>
+			<button>
+				<x>50</x>
+				<y>150</y>
+				<action>level/level2</action>
+			</button>
+		</buttons>
+	</gameState>
+	<gameState name='loading' type='Play' nextState='mainMenu'>
+		<gameCycles>
+			<gameCycle type='CutScene' id='0'>
+				<skippable>false</skippable>
+			</gameCycle>
+		</gameCycles>
+		<sequence>0</sequence>
+	</gameState>
+</gameStates>

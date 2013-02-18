@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<players>
+	<player name='Riggs'>
+		<speed>20</speed>
+		<health>10</health>
+	</player>
+	<player name='Murdock'>
+		<speed>10</speed>
+		<health>20</health>
+	</player>
+</players>

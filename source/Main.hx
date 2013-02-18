@@ -8,13 +8,16 @@ import nme.events.KeyboardEvent;
 import nme.Lib;
 import nme.ui.Keyboard;
 import org.flixel.FlxGame;
+import event.Events;
+import event.GameEvent;
+import game.Registry;
+import resource.StateLoader;
 
-/**
- * @author Joshua Granick
- */
-class Main extends Sprite 
+class Main extends Sprite
 {
-	
+	private var registry:Registry;
+	private var stateLoader:StateLoader;
+
 	public function new () 
 	{
 		super();
@@ -34,14 +37,31 @@ class Main extends Sprite
 		
 		initialize();
 		
-		var demo:FlxGame = new ProjectClass();
-		addChild(demo);
-		
 		#if (cpp || neko)
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUP);
 		#end
+
+		/*TRACE FLASH*/
+		#if (flash9 || flash10)
+			haxe.Log.trace = function(v,?pos) { untyped __global__["trace"](pos.className+"#"+pos.methodName+"("+pos.lineNumber+"):",v); }
+		#elseif flash
+			haxe.Log.trace = function(v,?pos) { flash.Lib.trace(pos.className+"#"+pos.methodName+"("+pos.lineNumber+"): "+v); }
+		#end
+
+
+		/*XML DATA*/
+		stateLoader = StateLoader.getInstance();
+		stateLoader.addEventListener(Events.STATES_LOADED, handleStatesLoaded);
+		registry = Registry.getInstance();
+		registry.init();
 	}
 	
+	private function handleStatesLoaded(gameEvent:GameEvent):Void
+	{
+		var demo:FlxGame = new ProjectClass();
+		addChild(demo);
+	}
+
 	#if (cpp || neko)
 	private function onKeyUP(e:KeyboardEvent):Void 
 	{
@@ -56,12 +76,14 @@ class Main extends Sprite
 	{
 		Lib.current.stage.align = StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+
+		/*DCE HANDLE!*/
+		DCEHandler.handle();
 	}
 	
 	// Entry point
 	public static function main() {
 		
 		Lib.current.addChild(new Main());
-	}
-	
+	}	
 }
