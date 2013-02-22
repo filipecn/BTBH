@@ -66,10 +66,14 @@ class LevelCycle extends GameCycle
 	override public function activate():Void
 	{
 		im.addEventListener(Events.MOUSE_JUST_RELEASED, handleMouseJustReleased);
+		for (ef in enemyFactories)
+			ef.reset();
 	}
 
 	override public function deactivate():Void
 	{
 		im.removeEventListener(Events.MOUSE_JUST_RELEASED, handleMouseJustReleased);
+		for (ef in enemyFactories)
+			ef.stop();
 	}
 }

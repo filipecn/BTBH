@@ -12,11 +12,13 @@ import event.Events;
 import event.GameEvent;
 import game.Registry;
 import resource.StateLoader;
+import utils.Timer;
 
 class Main extends Sprite
 {
 	private var registry:Registry;
 	private var stateLoader:StateLoader;
+	private var timer:Timer;
 
 	public function new () 
 	{
@@ -77,6 +79,9 @@ class Main extends Sprite
 		Lib.current.stage.align = StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
+		/*TIMER*/
+		timer = Timer.getInstance();
+		//stage.addEventListener( Event.ENTER_FRAME, function(_) { timer.enterFrame(); } );
 		/*DCE HANDLE!*/
 		DCEHandler.handle();
 	}

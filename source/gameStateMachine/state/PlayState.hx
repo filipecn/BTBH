@@ -17,6 +17,7 @@ import game.Registry;
 import gameStateMachine.cycle.GameCycle;
 import gameStateMachine.GameStateManager;
 import game.registry.PlayStateRegistry;
+import gameStateMachine.cycle.LevelCycle;
 
 /*PlayState é composto por gameCycles, ou seja, vários ciclos. Quando um ciclo termina, ele 
 deve decidir qual será o próximo.*/
@@ -49,11 +50,20 @@ class PlayState extends GameState
 		txt = new FlxText(0, 0, 360, "PLAY STATE " + psr.name + "(mouse click to continue) CYCLE=0");
 
         add(txt);
-
+        add(enemyPool);
         add(Registry.getInstance().player.getSprite());
 
         currStep = 0;
         psr.gameCycles[psr.cyclesSequence[currStep]].activate();
+
+        for (i in 0...psr.gameCycles.length){
+        	if(Type.getClassName(Type.getClass(psr.gameCycles[i])) == "gameStateMachine.cycle.LevelCycle"){
+        		var lc:LevelCycle = cast(psr.gameCycles[i], LevelCycle);
+        		for (j in 0...lc.enemyFactories.length){
+        			enemyPool.add(lc.enemyFactories[j]);
+        		}
+        	}
+        }
 	}
 	
 	override public function destroy():Void
