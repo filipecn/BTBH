@@ -4,7 +4,7 @@ import org.flixel.FlxG;
 
 class ControlsState
 {
-	private var controls:Array<Int>;
+	public var controls:Array<Int>;
 
 	private static var cs:ControlsState = null;
 

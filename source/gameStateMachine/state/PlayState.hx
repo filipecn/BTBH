@@ -13,6 +13,7 @@ import org.flixel.FlxText;
 import org.flixel.FlxU;
 import org.flixel.FlxGroup;
 import io.InputManager;
+import game.Registry;
 import gameStateMachine.cycle.GameCycle;
 import gameStateMachine.GameStateManager;
 import game.registry.PlayStateRegistry;
@@ -48,6 +49,8 @@ class PlayState extends GameState
 		txt = new FlxText(0, 0, 360, "PLAY STATE " + psr.name + "(mouse click to continue) CYCLE=0");
 
         add(txt);
+
+        add(Registry.getInstance().player.getSprite());
 
         currStep = 0;
         psr.gameCycles[psr.cyclesSequence[currStep]].activate();
